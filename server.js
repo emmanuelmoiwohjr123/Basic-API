@@ -1,9 +1,19 @@
-import express from 'express'
+import express from 'express';
+import db from './models/index.js';
+import carRouter from './Router/carRouter.js';
+import customerRouter from './Router/customerRouter.js';
+import rentalRouter from './Router/rentalRouter.js';
 
-const app = express()
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+app.use(express.json());
 
-app.listen(3000)
+// Routes
+app.use('/api/cars', carRouter);
+app.use('/api/customers', customerRouter);
+app.use('/api/rentals', rentalRouter);
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
